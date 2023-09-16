@@ -8,6 +8,11 @@ type ChatProps = {
     className?: string;
 };
 
+function generateRandomId(): string {
+    const timestamp = Date.now().toString();
+    const random = Math.random().toString(36).substring(2, 8);
+    return timestamp + random;
+}
 
 const Chat: React.FC<ChatProps> = ({ className }) => {
     const { messages } = useChatMessages();
@@ -15,7 +20,7 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
 
 
     return (
-        <div className={`w-full max-w-[370px] px-4 py-3 rounded-lg bg-gray-700 m-5 ${className}`}>            
+        <div className={`w-full max-w-[370px] px-4 py-3 rounded-lg bg-gray-700 m-5 ${className}`}>
             <ChatMessagesBox ref={chatMessageBoxRef} messages={messages} />
         </div>
     );
@@ -26,7 +31,7 @@ const ChatMessagesBox = React.forwardRef<
     { messages: MessageModel[] }
 >(({ messages }, ref) => {
     const MessageList = messages.map((message) => (
-        <ChatMessage key={message.id} className="mb-1" message={message} />
+        <ChatMessage key={generateRandomId()} className="mb-1" message={message} />
     ))
 
     return (
