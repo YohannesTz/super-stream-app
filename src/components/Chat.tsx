@@ -17,10 +17,10 @@ function generateRandomId(): string {
 const Chat: React.FC<ChatProps> = ({ className }) => {
     const { messages } = useChatMessages();
     const { chatMessageBoxRef } = useChatLiveModelScrolling<HTMLDivElement>(messages);
-
-
+    console.log(className);
+    
     return (
-        <div className={`w-full max-w-[370px] px-4 py-3 rounded-lg bg-gray-700 m-5 ${className}`}>
+        <div className={`w-full max-w-[370px] px-4 py-3 rounded-lg m-5 ${className}`}>
             <ChatMessagesBox ref={chatMessageBoxRef} messages={messages} />
         </div>
     );
