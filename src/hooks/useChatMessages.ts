@@ -42,16 +42,12 @@ export default function useChatMessages() {
 
   useEffect(() => {
     socket?.on("message", (msg: MessageModel) => {
-      console.log("message received!");
-
       if ("text" in msg.content) {
-        // Handle message with text content
         const textContent = msg.content as TextContent;
         console.log("Received text message:", textContent.text);
       } else if ("fileId" in msg.content) {
-        // Handle message with media content
         const mediaContent = msg.content as AnimationContent;
-        console.log("Received media message:", mediaContent.fileId);
+        console.log("Received media message:", mediaContent.file_name);
       }
       
       appendNewMessages(msg);

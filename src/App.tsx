@@ -22,10 +22,11 @@ function App() {
   };
 
   const contentClasses = [
-    'z-10',
     opacity ? `opacity-${Number(opacity)}` : 'opacity-100',
-    bg ? `bg-${bg}` : 'bg-blue',
+    bg ? `bg-${bg}` : 'bg-slate-700',
   ].join(' ');
+
+  console.log(contentClasses);
 
   return (
     <div style={pageStyles}>

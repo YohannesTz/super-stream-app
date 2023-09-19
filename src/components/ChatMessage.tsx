@@ -4,10 +4,9 @@ type MessageProps = {
     message: MessageModel
 } & React.ComponentPropsWithRef<'div'>
 
-
 function checkMediaType(url: string): string {
-    const videoExtensions = ['.mp4', '.avi', '.mov', '.mkv', '.flv', '.wmv'];
-    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg'];
+    const videoExtensions = ['.mp4', '.avi', '.mov', '.mkv', '.flv', '.wmv', '.webm'];
+    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'];
     const extension = url.substring(url.lastIndexOf('.')).toLowerCase();
 
     if (videoExtensions.includes(extension)) {
@@ -52,20 +51,25 @@ const ChatMessage = ({
         Content = <span className="ml-3 break-words text-white">{textContent.text}</span>;
     } else if ("fileId" in content && checkMediaType(animationContent.file_name) == "video") {
         Content = (
-            <video className="ml-3" autoPlay={true} style={{
+            <video className="ml-3 rounded-md" autoPlay={true} style={{
                 width: "30px",
                 height: "30px",
             }} src={animationContent.file_name} mime-type={animationContent.mime_type} loop />
         );
     } else if ("fileId" in content && checkMediaType(animationContent.file_name) == "img") {
         Content = (
-            <img className="ml-3" style={{
+            <img className="ml-3 rounded-md" style={{
                 width: "30px",
                 height: "30px",
             }} src={animationContent.file_name} />
         );
     } else {
-        Content = <></>;
+        Content = (
+            <img className="ml-3" style={{
+                width: "30px",
+                height: "30px",
+            }} src="https://img.icons8.com/color/48/error--v1.png" />
+        );
     }
 
 
