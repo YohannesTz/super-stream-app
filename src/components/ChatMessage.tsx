@@ -1,23 +1,9 @@
 import { MediaContent, MessageModel, TextContent } from "../utils/models";
+import { checkMediaTypeByUrl } from "../utils/helpers";
 
 type MessageProps = {
     message: MessageModel
 } & React.ComponentPropsWithRef<'div'>
-
-function checkMediaType(url: string): string {
-    const videoExtensions = ['.mp4', '.avi', '.mov', '.mkv', '.flv', '.wmv', '.webm'];
-    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.svg', '.webp'];
-    const extension = url.substring(url.lastIndexOf('.')).toLowerCase();
-
-    if (videoExtensions.includes(extension)) {
-        return 'video';
-    } else if (imageExtensions.includes(extension)) {
-        return 'img';
-    } else {
-        return 'unknown';
-    }
-}
-
 
 const ChatMessage = ({
     message: { author, content },
@@ -44,24 +30,24 @@ const ChatMessage = ({
     )
 
     let Content: JSX.Element;
-    const MediaContent = content as MediaContent;
+    const mediaContent = content as MediaContent;
 
     if ("text" in content) {
         const textContent = content as TextContent;
         Content = <span className="ml-3 break-words text-white">{textContent.text}</span>;
-    } else if ("fileId" in content && checkMediaType(MediaContent.file_name) == "video") {
+    } else if ("fileId" in content && checkMediaTypeByUrl(mediaContent.file_name) == "video") {
         Content = (
             <video className="ml-3 rounded-md" autoPlay={true} style={{
                 width: "30px",
                 height: "30px",
-            }} src={MediaContent.file_name} mime-type={MediaContent.mime_type} loop />
+            }} src={mediaContent.file_name} mime-type={mediaContent.mime_type} loop />
         );
-    } else if ("fileId" in content && checkMediaType(MediaContent.file_name) == "img") {
+    } else if ("fileId" in content && checkMediaTypeByUrl(mediaContent.file_name) == "img") {
         Content = (
             <img className="ml-3 rounded-md" style={{
                 width: "30px",
                 height: "30px",
-            }} src={MediaContent.file_name} />
+            }} src={mediaContent.file_name} />
         );
     } else {
         Content = (

@@ -1,7 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { MessageModel } from "./models";
 
-
 export function generateRandomMessage(): MessageModel {
   return {
     id: faker.number.int(),
@@ -58,4 +57,34 @@ export function generateRandomMessages(numMessages: number): MessageModel[] {
   }
 
   return messages;
+}
+
+export function checkMediaTypeByUrl(url: string): string {
+  const videoExtensions = [
+    ".mp4",
+    ".avi",
+    ".mov",
+    ".mkv",
+    ".flv",
+    ".wmv",
+    ".webm",
+  ];
+  const imageExtensions = [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".svg",
+    ".webp",
+  ];
+  const extension = url.substring(url.lastIndexOf(".")).toLowerCase();
+
+  if (videoExtensions.includes(extension)) {
+    return "video";
+  } else if (imageExtensions.includes(extension)) {
+    return "img";
+  } else {
+    return "unknown";
+  }
 }

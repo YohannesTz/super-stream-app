@@ -21,3 +21,44 @@
     scrollbar-width: none;
   }
 }
+
+.Toastify {
+  background: transparent !important;
+}
+
+.Toastify__toast {
+  background: transparent !important;
+  box-shadow: none;
+}
+
+.Toastify__toast-container {
+  background: transparent !important;
+}
+
+.Toastify__close-button {
+  display: none !important;
+}
+
+.Toastify__toast-body {
+  margin: 0 !important;
+  padding: 0 !important;
+  -ms-flex: 1 1 !important;
+  flex: 1 1 !important;
+  background: transparent !important;
+}
+
+.Toastify__toast-body_p {
+  margin: 10px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: black;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.toast-message {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 250px;
+}

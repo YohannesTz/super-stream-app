@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import Chat from "./components/Chat"
+import ReactionComponent, { ReactionComponentRef } from "./components/ReactionComponent";
 
 interface QueryParams {
   [key: string]: string | undefined
@@ -31,6 +32,7 @@ function App() {
   return (
     <div style={pageStyles}>
       <Chat className={`z-10 ${contentClasses}`} />
+      <ReactionComponent x={200} y={10}/>
     </div>
   )
 }
