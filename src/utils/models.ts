@@ -1,6 +1,6 @@
 export interface MessageModel {
   id: number;
-  content: TextContent | AnimationContent;
+  content: TextContent | MediaContent;
   author: Author;
 }
 
@@ -11,7 +11,7 @@ export interface TextContent {
   text: string;
 }
 
-export interface AnimationContent {
+export interface MediaContent {
   fileId: string;
   mime_type: string;
   file_name: string;

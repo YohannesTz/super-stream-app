@@ -1,4 +1,4 @@
-import { AnimationContent, MessageModel, TextContent } from "../utils/models";
+import { MediaContent, MessageModel, TextContent } from "../utils/models";
 
 type MessageProps = {
     message: MessageModel
@@ -44,24 +44,24 @@ const ChatMessage = ({
     )
 
     let Content: JSX.Element;
-    const animationContent = content as AnimationContent;
+    const MediaContent = content as MediaContent;
 
     if ("text" in content) {
         const textContent = content as TextContent;
         Content = <span className="ml-3 break-words text-white">{textContent.text}</span>;
-    } else if ("fileId" in content && checkMediaType(animationContent.file_name) == "video") {
+    } else if ("fileId" in content && checkMediaType(MediaContent.file_name) == "video") {
         Content = (
             <video className="ml-3 rounded-md" autoPlay={true} style={{
                 width: "30px",
                 height: "30px",
-            }} src={animationContent.file_name} mime-type={animationContent.mime_type} loop />
+            }} src={MediaContent.file_name} mime-type={MediaContent.mime_type} loop />
         );
-    } else if ("fileId" in content && checkMediaType(animationContent.file_name) == "img") {
+    } else if ("fileId" in content && checkMediaType(MediaContent.file_name) == "img") {
         Content = (
             <img className="ml-3 rounded-md" style={{
                 width: "30px",
                 height: "30px",
-            }} src={animationContent.file_name} />
+            }} src={MediaContent.file_name} />
         );
     } else {
         Content = (

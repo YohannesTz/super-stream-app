@@ -20,7 +20,7 @@ const Chat: React.FC<ChatProps> = ({ className }) => {
 
     const style: React.CSSProperties = {
         position: 'absolute',
-        left: `${750}px`,
+        left: `${20}px`,
         top: `${30}px`,
     };
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { MessageModel, AnimationContent, TextContent } from "../utils/models";
+import { MessageModel, MediaContent, TextContent } from "../utils/models";
 import { faker } from "@faker-js/faker";
 import useChatConnection from "./useChatConnection";
 
@@ -46,7 +46,7 @@ export default function useChatMessages() {
         const textContent = msg.content as TextContent;
         console.log("Received text message:", textContent.text);
       } else if ("fileId" in msg.content) {
-        const mediaContent = msg.content as AnimationContent;
+        const mediaContent = msg.content as MediaContent;
         console.log("Received media message:", mediaContent.file_name);
       }
       
