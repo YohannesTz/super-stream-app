@@ -2,8 +2,8 @@ import React, { forwardRef, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useChatMessages from "../hooks/useChatMessages";
 import { checkMediaTypeByUrl } from "../utils/helpers";
+import useReactionMessage from "../hooks/useReactionMessage";
 
 type ReactionComponentProps = {
     x: number;
@@ -19,6 +19,8 @@ export interface ReactionComponentRef {
     showAlert: () => void;
 }
 
+const STATIC_VIDEO_URL = "https://res.cloudinary.com/dgiyepcoy/video/upload/v1695337510/super-stream/videos/"
+
 const MediaComponent: React.FC<MediaComponentProps> = ({ source, author }) => {
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -32,7 +34,7 @@ const MediaComponent: React.FC<MediaComponentProps> = ({ source, author }) => {
 
     useEffect(() => {
         if (isLoaded) {
-            toast(<><video autoPlay style={{ width: "250px", height: "250px" }} onEnded={handleVideoEnded} src={source} /><p className="font-bold text-white text-stroke-black text-stroke-2 my-1 text-center">{`${author} Redeemed: Oh nooo!`}</p></>, {
+            toast(<><video autoPlay style={{ width: "250px", height: "250px" }} onEnded={handleVideoEnded} src={source} /><p className="font-bold text-white text-stroke-black text-stroke-2 my-1 text-center">{`${author} Redeemed...`}</p></>, {
                 position: "top-right",
                 className: "toast-message",
                 autoClose: false,
@@ -73,17 +75,18 @@ function notifyVideo(url: string, author: string) {
     });
 }
 
-const ReactionComponent = forwardRef<ReactionComponentRef, ReactionComponentProps>((props, ref) => {
-    const { messages } = useChatMessages();
+const ReactionComponent = forwardRef<ReactionComponentRef, ReactionComponentProps>((props) => {
+    const { reactions } = useReactionMessage();
 
     useEffect(() => {
         console.log("received inside reaction");
-        const lastElement = messages[messages.length - 1];
+        const lastElement = reactions[reactions.length - 1];
+        console.log("rxn recieved: ", lastElement);
 
-        if ("fileId" in lastElement.content && checkMediaTypeByUrl(lastElement.content.file_name) === "video") {
-            notifyVideo(lastElement.content.file_name, lastElement.author.firstName);
+        if (typeof lastElement != "undefined" && "slug" in lastElement.content && checkMediaTypeByUrl(lastElement.content.slug) === "video") {
+            notifyVideo(STATIC_VIDEO_URL + lastElement.content.slug, lastElement.author.firstName);
         }
-    }, [messages]);
+    }, [reactions]);
 
     const style: React.CSSProperties = {
         position: "absolute",

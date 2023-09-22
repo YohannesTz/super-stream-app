@@ -1,6 +1,6 @@
 export interface MessageModel {
   id: number;
-  content: TextContent | MediaContent;
+  content: TextContent | MediaContent | ReactionContent;
   author: Author;
 }
 
@@ -12,9 +12,19 @@ export interface TextContent {
 }
 
 export interface MediaContent {
+  chatId: number;
+  type: string;
+  date: number;
   fileId: string;
   mime_type: string;
   file_name: string;
+}
+
+export interface ReactionContent {
+  title: string;
+  keywords: string;
+  slug: string;
+  by: string;
 }
 
 export interface Author {
