@@ -19,7 +19,7 @@ export interface ReactionComponentRef {
     showAlert: () => void;
 }
 
-const STATIC_VIDEO_URL = "https://res.cloudinary.com/dgiyepcoy/video/upload/v1695337510/super-stream/videos/"
+const STATIC_VIDEO_URL = "https://res.cloudinary.com/dgiyepcoy/video/upload/super-stream/videos/"
 
 const MediaComponent: React.FC<MediaComponentProps> = ({ source, author }) => {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -34,6 +34,7 @@ const MediaComponent: React.FC<MediaComponentProps> = ({ source, author }) => {
 
     useEffect(() => {
         if (isLoaded) {
+            console.log(source);
             toast(<><video autoPlay style={{ width: "250px", height: "250px" }} onEnded={handleVideoEnded} src={source} /><p className="font-bold text-white text-stroke-black text-stroke-2 my-1 text-center">{`${author} Redeemed...`}</p></>, {
                 position: "top-right",
                 className: "toast-message",
@@ -45,6 +46,7 @@ const MediaComponent: React.FC<MediaComponentProps> = ({ source, author }) => {
                 draggable: true,
                 pauseOnHover: true,
             });
+            setIsLoaded(false);
         }
     }, [isLoaded, source]);
 
@@ -55,6 +57,7 @@ const MediaComponent: React.FC<MediaComponentProps> = ({ source, author }) => {
                 style={{ width: "250px", height: "250px", display: "none" }}
                 onLoadedData={handleVideoLoadedData}
                 onEnded={handleVideoEnded}
+                muted={true}
                 src={source}
             />
         </>
